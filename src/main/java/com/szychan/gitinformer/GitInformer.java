@@ -22,20 +22,24 @@ public class GitInformer {
 	 *            the arguments
 	 */
 	public static void main(String[] args) {
-		String userName;
-		if (args.length == 0) {
-			System.out.print("Enter GitHub user name :");
-			userName = System.console().readLine();
-		} else if (args.length != 1) {
+		String userName = null;
+		
+		if (args.length > 1) {
 			System.out.println("Wrong number of parameters.");
 			System.out.println("Application takes 0 or 1 parameter");
 			System.exit(0);
-
+		}
+		
+		if (args.length == 0) {
+			System.out.print("Enter GitHub user name :");
+			userName = System.console().readLine();
+		} else {
+			userName = args[0];
 		}
 
-		JsonArray jsonArray = getUserRepositories(args[0]);
+		JsonArray jsonArray = getUserRepositories(userName);
 		try {
-			MyPdfWriter.WriteUserRepositoriesToPdf(args[0], jsonArray);
+			MyPdfWriter.WriteUserRepositoriesToPdf(userName, jsonArray);
 		} catch (FileNotFoundException e) {
 			System.out.println("Error while trying to write pdf.");
 			System.exit(0);
