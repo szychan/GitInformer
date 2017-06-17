@@ -10,32 +10,55 @@ import javax.ws.rs.core.MediaType;
 
 import org.glassfish.jersey.jsonp.JsonProcessingFeature;
 
+/**
+ * The Main Application Class.
+ */
 public class GitInformer {
 
+	/**
+	 * The main method.
+	 *
+	 * @param args
+	 *            the arguments
+	 */
 	public static void main(String[] args) {
-
-		if (args.length != 1) {
+		String userName;
+		if (args.length == 0) {
+			System.out.print("Enter GitHub user name :");
+			userName = System.console().readLine();
+		} else if (args.length != 1) {
+			System.out.println("Wrong number of parameters.");
+			System.out.println("Application takes 0 or 1 parameter");
 			System.exit(0);
+
 		}
 
 		JsonArray jsonArray = getUserRepositories(args[0]);
-		// System.out.println(jsonArray.toString());
-
 		try {
 			MyPdfWriter.WriteUserRepositoriesToPdf(args[0], jsonArray);
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.out.println("Error while trying to write pdf.");
+			System.exit(0);
 		}
+
+		System.out.println("Pdf generated \nClosing...");
 	}
 
+	/**
+	 * Gets the user repositories.
+	 *
+	 * @param userName
+	 *            the user name
+	 * @return the user repositories
+	 */
 	public static JsonArray getUserRepositories(String userName) {
+		System.out.println("Getting user data");
+
 		JsonArray jsonArray = null;
 
 		Client client = ClientBuilder.newClient();
 		WebTarget target = client.register(JsonProcessingFeature.class).target("https://api.github.com")
 				.path("users/" + userName + "/repos").queryParam("sort", "updated");
-		System.out.println(target.getUri());
 
 		jsonArray = target.request(MediaType.APPLICATION_JSON_TYPE).get(JsonArray.class);
 
