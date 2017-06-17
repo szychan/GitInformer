@@ -5,4 +5,16 @@
   <version>0.0.1-SNAPSHOT</version>
   <name>GitInformer</name>
   <description>Github Util for command line </description>
+  <dependencies>
+  	<dependency>
+    	<groupId>org.glassfish.jersey.core</groupId>
+    	<artifactId>jersey-client</artifactId>
+    	<version>2.25.1</version>
+    </dependency>
+    <dependency>
+    	<groupId>org.glassfish.jersey.media</groupId>
+   		<artifactId>jersey-media-json-processing</artifactId>
+   		<version>2.22.1</version>
+	</dependency>
+  </dependencies>
 </project>
