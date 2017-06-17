@@ -3,6 +3,7 @@ package com.szychan.gitinformer;
 import java.io.FileNotFoundException;
 
 import javax.json.JsonArray;
+import javax.ws.rs.NotFoundException;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.WebTarget;
@@ -22,14 +23,14 @@ public class GitInformer {
 	 *            the arguments
 	 */
 	public static void main(String[] args) {
-		String userName = null;
-		
+		String userName = "";
+
 		if (args.length > 1) {
 			System.out.println("Wrong number of parameters.");
 			System.out.println("Application takes 0 or 1 parameter");
 			System.exit(0);
 		}
-		
+
 		if (args.length == 0) {
 			System.out.print("Enter GitHub user name :");
 			userName = System.console().readLine();
@@ -59,13 +60,17 @@ public class GitInformer {
 		System.out.println("Getting user data");
 
 		JsonArray jsonArray = null;
+		try {
+			Client client = ClientBuilder.newClient();
+			WebTarget target = client.register(JsonProcessingFeature.class).target("https://api.github.com")
+					.path("users/" + userName + "/repos").queryParam("sort", "updated");
 
-		Client client = ClientBuilder.newClient();
-		WebTarget target = client.register(JsonProcessingFeature.class).target("https://api.github.com")
-				.path("users/" + userName + "/repos").queryParam("sort", "updated");
+			jsonArray = target.request(MediaType.APPLICATION_JSON_TYPE).get(JsonArray.class);
+		} catch (NotFoundException e) {
 
-		jsonArray = target.request(MediaType.APPLICATION_JSON_TYPE).get(JsonArray.class);
-
+			System.out.println("There is no GitHub account with that user name");
+			System.exit(0);
+		}
 		return jsonArray;
 	}
 }

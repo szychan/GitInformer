@@ -5,9 +5,11 @@ import java.io.FileNotFoundException;
 import javax.json.JsonArray;
 import javax.json.JsonObject;
 
+import com.itextpdf.kernel.color.Color;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.layout.Document;
+import com.itextpdf.layout.element.Cell;
 import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.layout.element.Table;
 
@@ -36,8 +38,8 @@ public class MyPdfWriter {
 
 		Table table = new Table(new float[] { 1, 1 });
 
-		table.addHeaderCell("Repository Name");
-		table.addHeaderCell("Last Updated");
+		table.addHeaderCell(new Cell().add(new Paragraph("Repository Name")).setBackgroundColor(Color.BLUE));
+		table.addHeaderCell(new Cell().add(new Paragraph("Update Date")).setBackgroundColor(Color.BLUE));
 
 		for (JsonObject jsonObject : jsonArray.getValuesAs(JsonObject.class)) {
 
