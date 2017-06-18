@@ -4,6 +4,7 @@ import java.io.FileNotFoundException;
 
 import javax.json.JsonArray;
 import javax.ws.rs.NotFoundException;
+import javax.ws.rs.ProcessingException;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.WebTarget;
@@ -69,6 +70,9 @@ public class GitInformer {
 		} catch (NotFoundException e) {
 
 			System.out.println("There is no GitHub account with that user name");
+			System.exit(0);
+		}catch (ProcessingException e){
+			System.out.println("Failed to connect to server");
 			System.exit(0);
 		}
 		return jsonArray;
