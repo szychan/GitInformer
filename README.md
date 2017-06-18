@@ -1,14 +1,24 @@
 # GitInformer
+
 Git Utill Application creates a pdf with github repositories of specified user.
 
-## Getting Started
+
+## Prerequisites
+
+Download and install following tools:
+
+Git from [a link](https://git-scm.com/downloads)
+
+Maven from [a link](https://maven.apache.org/download.cgi)
+
+## Installation
 
 Firstly clone project to Your directory by using 
 ```
 git clone https://github.com/szychan/GitInformer.git
 ```
 
-build it with
+build it with:
 ```
 mvn install
 ```
@@ -28,7 +38,7 @@ It is also possible to run the application by calling jar with parameters.
 ```
 java -jar GitInformer.jar user
 ```
-Where username is name of GitHub user.
+Where user is name of GitHub user.
 
 ## Authors
 
