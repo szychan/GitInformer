@@ -7,9 +7,9 @@ Git Utill Application creates a pdf with github repositories of specified user.
 
 Download and install following tools:
 
-Git from [a link](https://git-scm.com/downloads)
+Git from [https://git-scm.com/downloads](https://git-scm.com/downloads)
 
-Maven from [a link](https://maven.apache.org/download.cgi)
+Maven from [https://maven.apache.org/download.cgi](https://maven.apache.org/download.cgi)
 
 ## Installation
 
